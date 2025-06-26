@@ -50,14 +50,27 @@ export const metadata = {
 
 ## Project Overview
 
-This project implements a Deep Q-Network (DQN) to train an AI agent to play Flappy Bird. The agent learns through trial and error, gradually improving its performance until it can play the game indefinitely without human intervention.
+This project implements a **Deep Q-Network (DQN) agent** capable of learning to play games through reinforcement learning. The agent learns optimal strategies by interacting with environments and receiving rewards for good actions while being penalized for poor ones.
+
+### Supported Environments
+
+- **CartPole-v1**: Balance a pole on a cart by moving left or right
+- **FlappyBird-v0**: Navigate a bird through pipes by controlling vertical movement
+- **More Games**: Additional environments can be easily added
+
+The implementation includes several advanced DQN techniques:
+
+- **Double DQN**: Reduces overestimation bias in Q-value learning
+- **Dueling DQN**: Separates state value from action advantages for better learning
+- **Experience Replay**: Stores and reuses past experiences for more stable training
+- **Target Networks**: Uses separate networks to stabilize training
 
 ### Key Achievements
 
-- **Autonomous Gameplay**: Agent successfully plays Flappy Bird without human input
+- **Autonomous Gameplay**: Agent successfully plays both CartPole and Flappy Bird without human input
 - **From Scratch Implementation**: Custom DQN implementation without using high-level RL libraries
-- **Performance**: Agent achieves scores of 1000+ after training
-- **Learning Visualization**: Real-time training progress and score tracking
+- **Advanced Techniques**: Implements Double DQN and Dueling DQN architectures
+- **Performance Tracking**: Real-time training progress and comprehensive logging
 
 ## Game Environment
 
@@ -208,6 +221,96 @@ class FlappyBirdEnv:
         
         return False`}
 </CodeBlock>
+
+## Key Concepts
+
+### Reinforcement Learning
+
+The agent learns through trial and error by:
+
+1. **Observing** the current state of the environment
+2. **Taking actions** based on its current policy  
+3. **Receiving rewards** for good actions and penalties for bad ones
+4. **Learning** to maximize future rewards over time
+
+### Q-Learning
+
+Q-Learning estimates the "quality" (Q-value) of taking each possible action in any given state. The agent learns which actions lead to the highest cumulative rewards.
+
+### Deep Neural Networks
+
+Instead of storing Q-values in a table (impossible for complex states), a neural network approximates Q-values for any state-action pair.
+
+### Exploration vs Exploitation
+
+- **Exploration**: Taking random actions to discover new strategies (high epsilon)
+- **Exploitation**: Using learned knowledge to take the best known actions (low epsilon)  
+- The agent starts by exploring randomly and gradually shifts to exploiting learned knowledge
+
+## Methodology
+
+### 1. Experience Collection
+
+The agent interacts with the environment using an epsilon-greedy strategy:
+
+- With probability ε (epsilon), take a random action (exploration)
+- With probability 1-ε, take the action with highest predicted Q-value (exploitation)
+- Epsilon starts high (1.0 = 100% random) and gradually decreases during training
+
+### 2. Experience Storage
+
+All experiences (state, action, reward, next_state, done) are stored in a replay memory buffer. This allows the agent to:
+
+- Learn from past experiences multiple times
+- Break correlations between consecutive experiences
+- Use data more efficiently
+
+### 3. Network Training
+
+Periodically, the agent samples random batches from replay memory and trains the neural network to:
+
+- Predict Q-values for current states
+- Minimize the difference between predicted and target Q-values
+- Update weights using backpropagation
+
+### 4. Target Network Updates
+
+A separate "target network" provides stable Q-value targets during training. It's updated less frequently than the main network to prevent unstable learning.
+
+## Model Architecture
+
+### Standard DQN Architecture
+
+```
+Input Layer (State) → Hidden Layer (128-512 nodes) → Output Layer (Q-values for each action)
+```
+
+### Dueling DQN Architecture
+
+The dueling architecture separates the Q-value estimation into two components:
+
+```
+Input Layer (State)
+        ↓
+Shared Hidden Layer (128-512 nodes)
+        ↓
+    ┌─────────┐    ┌──────────────┐
+    │ Value   │    │ Advantage    │
+    │ Stream  │    │ Stream       │
+    └─────────┘    └──────────────┘
+        ↓                ↓
+    V(s)           A(s,a) for each action
+        ↓                ↓
+        └────────────────┘
+                 ↓
+        Q(s,a) = V(s) + A(s,a) - mean(A(s,·))
+```
+
+**Benefits of Dueling Architecture:**
+
+- **Value Stream V(s)**: Estimates how good it is to be in a particular state
+- **Advantage Stream A(s,a)**: Estimates how much better each action is compared to the average
+- This separation helps the agent learn faster, especially when most actions have similar values
 
 ## DQN Implementation
 

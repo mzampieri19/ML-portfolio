@@ -50,37 +50,154 @@ export const metadata = {
 
 ## Project Overview
 
-This project was developed as part of the TAMID consulting group to create an AI-powered solution for automatic plastic type identification and sorting. The system combines computer vision and deep learning to help recycling facilities and waste management companies improve their sorting accuracy and efficiency.
+This project was developed as part of the **TAMID consulting group** to create a CNN model for classifying different types of plastics. The project involved working with a startup to develop a practical solution for plastic identification and sorting using computer vision and deep learning techniques.
+
+**Note**: Data is too large to be included in the repository, so it is ignored in the GitHub repo, but information about the data structure and parameters is documented below.
 
 ### Project Goals
 
-- **Automated Classification**: Identify different plastic types (PET, HDPE, PVC, LDPE, PP, PS, Other)
-- **Real-time Detection**: Process images quickly for industrial applications
-- **Bounding Box Detection**: Locate and highlight plastic items in complex scenes
-- **High Accuracy**: Achieve >95% classification accuracy for clear images
-- **Practical Deployment**: Create a system that can be integrated into existing workflows
+- **Automated Plastic Classification**: Identify different plastic types using CNN technology
+- **Startup Collaboration**: Work directly with industry partners on real-world applications
+- **Group Project**: Collaborative development with team members
+- **Data Preparation**: Comprehensive preprocessing pipeline for plastic identification
+- **Bounding Box Integration**: Location and identification of plastic items in images
 
-## Problem Statement
+## Dataset Information
 
-### The Plastic Waste Challenge
+### Data Characteristics
 
-The global plastic waste crisis requires efficient sorting and recycling systems. Current manual sorting is:
-- **Labor-intensive**: Requires trained workers to identify plastic types
-- **Error-prone**: Human classification accuracy varies significantly
-- **Slow**: Manual processes limit throughput
-- **Costly**: High labor costs affect recycling economics
+The dataset consists of high-quality photographs of plastic items with the following specifications:
 
-### Our Solution
+**Image Parameters:**
+- **Size**: 1920x1277 pixels
+- **Resolution**: 300 DPI
+- **Color Palette**: RGB 24 bits
+- **File Format**: JPG
 
-An AI-powered system that:
-1. **Automatically detects** plastic items in images
-2. **Classifies** plastic types using resin identification codes
-3. **Provides bounding boxes** for precise localization
-4. **Operates in real-time** for industrial integration
+### Filename Convention
 
-## Dataset and Data Preparation
+The dataset uses a systematic naming convention where each filename contains detailed information about the object:
 
-### Data Collection Strategy
+**Format**: `[order_number] [a][b][c][d][e][f][g][h].jpg`
+
+**Parameter Breakdown:**
+- **First four digits**: Order number of the object
+- **[a]**: Plastic type number  
+- **[b]**: Color classification
+- **[c]**: Type of lighting used
+- **[d]**: Deformation level
+- **[e]**: Dirt level
+- **[f]**: Presence of screw cap or lid
+- **[g]**: Presence of ring (characteristic for bottles with screw caps)
+- **[h]**: Random position order number
+
+### Plastic Type Classifications [a]
+
+The dataset includes the following plastic type categories:
+
+- **00**: Missing or unreadable identifier
+- **01**: **PET** - Polyethylene Terephthalate
+- **02**: **PE-HD** - High-Density Polyethylene  
+- **03**: **PVC** - Polyvinyl Chloride
+- **04**: **PE-LD** - Low-Density Polyethylene
+- **05**: **PP** - Polypropylene
+- **06**: **PS** - Polystyrene
+- **07**: **Other** - Mixed or other plastic types
+
+### Example Filename Analysis
+
+**Example**: `0004 a01b05c2d0e1f0g1h1.jpg`
+
+**Breakdown:**
+- **0004**: Object number 4
+- **a01**: PET plastic type
+- **b05**: Color classification 5
+- **c2**: Lighting type 2
+- **d0**: No deformation
+- **e1**: Dirt level 1
+- **f0**: No screw cap or lid
+- **g1**: Ring present
+- **h1**: Position 1
+
+**Note**: This particular example shows a PET plastic item that is missing or has an unreadable identifier despite being classified as type 01.
+
+## Technical Implementation
+
+### Data Preparation Pipeline
+
+The project involves extensive data preprocessing:
+
+**1. Image Preprocessing**
+- Standardization of image dimensions
+- Normalization of pixel values
+- Data augmentation for improved generalization
+
+**2. Label Processing**
+- Extraction of plastic type from filename
+- Creation of categorical labels for neural network training
+- Handling of missing or ambiguous identifiers
+
+**3. Data Organization**
+- Training/validation/test splits
+- Balanced sampling across plastic types
+- Quality control and data validation
+
+### Model Architecture
+
+**CNN Design:**
+- Custom convolutional neural network architecture
+- Multiple convolutional and pooling layers
+- Dropout layers for regularization
+- Dense layers for final classification
+
+**Key Features:**
+- **Multi-class Classification**: Distinguishes between 7+ plastic types
+- **Robust to Variations**: Handles different lighting, deformation, and dirt levels
+- **Industrial Application**: Designed for real-world manufacturing environments
+- **Bounding Box Capability**: Integration with object detection frameworks
+
+## Project Structure
+
+The repository is organized as follows:
+
+```
+TAMID-Group-New/
+├── notebooks/          # Jupyter notebooks with implementation
+├── src/               # Source code and utilities
+├── .gitignore        # Git ignore file (excludes large data files)
+└── README.md         # Project documentation
+```
+
+### Implementation Files
+
+**Language Distribution:**
+- **Jupyter Notebook**: 99.9% (Main implementation)
+- **Python**: 0.1% (Utility scripts)
+
+## Challenges and Solutions
+
+### Data Management
+- **Challenge**: Large dataset size preventing GitHub upload
+- **Solution**: Local data management with comprehensive documentation
+
+### Classification Complexity
+- **Challenge**: Multiple variables affecting plastic identification
+- **Solution**: Multi-parameter learning approach considering lighting, deformation, and condition
+
+### Real-World Application
+- **Challenge**: Varying environmental conditions in industrial settings
+- **Solution**: Data augmentation and robust preprocessing pipeline
+
+## Group Collaboration
+
+This project demonstrates:
+- **Teamwork**: Collaborative development with multiple contributors
+- **Industry Partnership**: Direct engagement with startup companies
+- **Technical Skills**: CNN development, data preparation, and neural network implementation
+- **Problem-Solving**: Addressing real-world plastic sorting challenges
+- **Documentation**: Comprehensive project documentation and code organization
+
+The TAMID Image Classifier project showcases the practical application of machine learning in environmental sustainability and waste management, providing valuable experience in both technical implementation and industry collaboration.
 
 <CodeBlock language="python" filename="data_collection.py">
 {`import os

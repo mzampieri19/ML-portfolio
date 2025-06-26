@@ -57,47 +57,86 @@ export const metadata = {
   </span>
 </div>
 
-## Overview
+## Project Purpose
 
-This project provides a comprehensive exploration of various clustering techniques applied to financial data. The analysis compares different unsupervised learning algorithms to identify patterns and group similar financial entities.
+The objective of this project is to gain a **deeper understanding of projection and clustering techniques**. The dataset used for this exploration was sourced from Kaggle and was selected due to its relatively clean structure and ease of use.
 
-## Key Features
+## The Data
 
-- **Multiple Clustering Algorithms**: Implementation of K-Means, hierarchical clustering, and other techniques
-- **Dimensionality Reduction**: Use of t-SNE for visualization and analysis
-- **Financial Data Analysis**: Applied to real-world financial datasets
-- **Comparative Analysis**: Performance evaluation across different clustering methods
+The dataset is an **income survey of Canadian citizens** (or potentially citizens of another country), containing extensive demographic and financial information. Detailed descriptions of the dataset's features can be found in `./data/README`.
 
-## Clustering Techniques Explored
+## Exploration Overview
 
-### K-Means Clustering
-Implementation of the classic K-Means algorithm for partitioning financial data into clusters.
+The initial exploration was conducted in `exploration.ipynb`. This notebook includes:
+- **Dataset Overview**: Comprehensive analysis of the data structure and contents
+- **Histogram Creation**: Distribution analysis of key features
+- **Data Preprocessing**: Cleaning and preparation for clustering analysis
+- **Data Projections**: Various dimensionality reduction techniques
+- **Clustering Analysis**: Implementation of KMeans and DBSCAN algorithms
 
-<CodeBlock language="python" title="K-Means Implementation">
-{`from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler
-import matplotlib.pyplot as plt
+### Pre-processing
 
-# Standardize the financial data
-scaler = StandardScaler()
-scaled_data = scaler.fit_transform(financial_data)
+The dataset contains several categorical features, including:
+- `'Province'`, `'MBMREGP'`, `'Gender'`, `'Age_gap'`, `'Marital_status'`, `'Highschool'`, `'Highest_edu'`, `'Work_ref'`, `'Immigrant'`
 
-# Apply K-Means clustering
-kmeans = KMeans(n_clusters=5, random_state=42)
-clusters = kmeans.fit_predict(scaled_data)
+**Data Transformation Process:**
+- **One-hot Encoding**: Applied to categorical features, increasing dimensionality from 37 to 108 features
+- **StandardScaler**: Applied to normalize the data, addressing inconsistencies in feature scaling
+- **Missing Value Handling**: Proper treatment of null values and data inconsistencies
 
-# Visualize clusters
-plt.figure(figsize=(12, 8))
-plt.scatter(scaled_data[:, 0], scaled_data[:, 1], c=clusters, cmap='viridis')
-plt.title('K-Means Clustering of Financial Data')
-plt.xlabel('Feature 1')
-plt.ylabel('Feature 2')
-plt.colorbar()
-plt.show()`}
-</CodeBlock>
+### Projections
 
-### t-SNE Visualization
-Used t-distributed Stochastic Neighbor Embedding for high-dimensional data visualization.
+Two projection techniques were utilized for dimensionality reduction and visualization:
+
+**Principal Component Analysis (PCA)**
+- Linear dimensionality reduction technique
+- Preserves maximum variance in the data
+- Efficient computation and interpretable results
+
+**t-Distributed Stochastic Neighbor Embedding (t-SNE)**
+- Non-linear dimensionality reduction technique  
+- Perplexity value of 50 used for optimal visualization
+- Excellent for visualizing cluster structures and local patterns
+
+These projections provided clearer visualization of the data, facilitating the clustering process and revealing hidden patterns in the financial dataset.
+
+### Clustering Algorithms
+
+Two clustering algorithms were applied to the dataset:
+
+**KMeans Clustering**
+- Partitioning method that divides data into k clusters
+- Applied to both PCA and t-SNE projections
+- Hyperparameter tuning for optimal cluster numbers
+
+**DBSCAN (Density-Based Spatial Clustering)**
+- Density-based clustering algorithm
+- Effective at finding clusters of varying shapes and sizes
+- Hyperparameter tuning exploring different `min_samples` values
+
+**Comprehensive Analysis:**
+- Each algorithm was used on both PCA and t-SNE projections
+- Total of **four clustering models** created
+- Extensive hyperparameter tuning performed
+- Generated approximately **40 visualizations** for analysis
+
+### Evaluation Metrics
+
+The clustering models were evaluated using two primary metrics:
+
+**1. Inertia**
+- Measures compactness of clusters
+- Used to assess within-cluster sum of squares
+- **Elbow Method** applied to determine optimal hyperparameters
+- Lower inertia indicates more compact clusters
+
+**2. Silhouette Score**  
+- Measures quality of clustering
+- Evaluates how similar an object is to its own cluster compared to other clusters
+- Score ranges from -1 to +1, where higher values indicate better clustering
+- Provides insight into cluster separation and cohesion
+
+**Consistent Results:** Both metrics provided consistent results, aiding in the identification of optimal hyperparameters and ensuring robust clustering analysis.
 
 <CodeBlock language="python" title="t-SNE Implementation">
 {`from sklearn.manifold import TSNE
@@ -191,6 +230,84 @@ This exploration provided valuable insights into:
 - **Feature Engineering**: Create new financial indicators
 - **Time Series Clustering**: Analyze temporal patterns
 - **Interactive Visualizations**: Build web-based exploration tools
+
+## Figures Directory
+
+The `figures` directory is organized into three main categories, each containing visualizations generated during the exploration and clustering processes:
+
+### 1. Exploration
+This category includes initial exploratory visualizations:
+- **Histograms**: Distribution analysis of the dataset's features
+- **First Projections**: Initial PCA and t-SNE projections
+- **Data Overview**: Plots providing insight into data distribution and structure before clustering
+
+### 2. KMEANS
+This category is divided into subdirectories:
+
+**KMEANS-PCA:**
+- Visualizations of KMeans clustering applied to PCA-projected data
+- Cluster plots showing the distribution of data points across clusters
+- Evaluation graphs including inertia and silhouette score plots
+- Hyperparameter tuning visualizations for model assessment
+
+**KMEANS-tSNE:**
+- Visualizations of KMeans clustering applied to t-SNE-projected data
+- Similar cluster plots and evaluation graphs as PCA subdirectory
+- Hyperparameter tuning results and model performance comparisons
+
+### 3. DBSCAN
+This category is also divided into subdirectories:
+
+**DBSCAN-PCA:**
+- Visualizations of DBSCAN clustering applied to PCA-projected data
+- Cluster plots showing density-based groupings
+- Silhouette score plots for performance analysis
+- Impact of hyperparameter tuning on clustering results
+
+**DBSCAN-tSNE:**
+- Visualizations of DBSCAN clustering applied to t-SNE-projected data
+- Insights into clustering results with non-linear projections
+- Comprehensive set of evaluation metrics and performance comparisons
+
+Each subdirectory provides a **comprehensive set of visualizations** that illustrate the clustering results and evaluation metrics, enabling detailed comparison of different models and projections.
+
+## Python Files
+
+Following the initial exploration, the code was modularized into organized Python files for improved usability and maintainability:
+
+### `main.py`
+- **Data Loading**: Handles loading of the dataset from CSV file
+- **Parameter Definition**: Defines clustering parameters (`clusters` and `min_samples`)
+- **Clustering Execution**: Performs KMeans and DBSCAN clustering
+- **Output Generation**: Outputs evaluation scores and generates relevant plots
+
+### `driver.py`
+- **Score Initialization**: Initializes score arrays for evaluation metrics
+- **Clustering Orchestration**: Orchestrates clustering based on specified projection type
+- **Results Processing**: Returns computed score arrays in structured format
+
+### `clustering.py`
+- **Algorithm Implementation**: Core clustering logic for both KMeans and DBSCAN
+- **Projection Support**: Supports clustering on both PCA and t-SNE projections
+- **Model Variants**: Implements four different clustering model combinations
+
+### `projection.py`
+- **PCA Implementation**: Functions for generating Principal Component Analysis projections
+- **t-SNE Implementation**: Functions for generating t-SNE projections
+- **Data Transformation**: Returns transformed datasets for clustering analysis
+
+### `scores.py`
+- **Evaluation Metrics**: Functions for calculating inertia and silhouette scores
+- **Performance Assessment**: Comprehensive evaluation of clustering quality
+- **Structured Output**: Returns computed scores in organized format
+
+### `visualization.py`
+- **Plot Generation**: Various functions for creating visualizations
+- **Projection Plots**: Visualizations for both PCA and t-SNE projections
+- **Clustering Results**: Visual representation of clustering outcomes
+- **Evaluation Graphs**: Plots for metrics like inertia and silhouette scores
+
+This project demonstrates the **practical application of clustering techniques** and **dimensionality reduction methods** to a real-world dataset, providing valuable insights into the data structure and the effectiveness of different clustering approaches.
 
 <div className="mt-12 p-6 bg-slate-50 dark:bg-slate-800 rounded-2xl">
   <Link href="/projects" className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">

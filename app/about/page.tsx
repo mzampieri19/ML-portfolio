@@ -4,59 +4,65 @@ import { Brain, Mail, Github, Linkedin, Download, Award, BookOpen, Users } from 
 export default function AboutPage() {
   const experience = [
     {
-      title: "Machine Learning Engineer",
-      company: "TechCorp AI",
-      period: "2023 - Present",
-      description: "Developing production ML systems for computer vision and NLP applications",
+      title: "Software Engineer Intern",
+      company: "Imago Rehab",
+      period: "May 2025 - Aug 2025",
+      description: "Developed software and AI solutions for the leading virtual physical therapy provider company. Aided in maintaining code, creating features and designing the product and system",
       achievements: [
-        "Improved model accuracy by 15% through advanced feature engineering",
-        "Deployed 8 ML models to production serving 1M+ users",
-        "Led team of 3 junior ML engineers"
+        "Made numerous improvements on the codebase, including bug fixes and feature enhancements",
+        "Worked alongside a team of other full stack engineers directly leading to an increased investor budget of over 100%",
       ]
     },
     {
-      title: "Data Scientist",
-      company: "DataTech Solutions",
-      period: "2022 - 2023",
-      description: "Built predictive models for business intelligence and customer analytics",
+      title: "Machine Learning Engineer Intern",
+      company: "TAMID Group",
+      period: "Jan 2025 - May 2025",
+      description: "Created various CNN models to predict plastics for a startup company.",
       achievements: [
-        "Created recommendation system increasing revenue by 12%",
-        "Automated data pipeline reducing processing time by 60%",
+        "Deployed KNN, Random Forest, LSTM and CNN models to production all with > 90% accuracy",
+        "Revolutionized and automated the data preparation process, reducing time by a great margin",
         "Presented findings to C-level executives"
+      ]
+    },
+    {
+      title: "AI Fellow",
+      company: "Real Salary",
+      period: "Aug 2024 - Dec 2024",
+      description: "Created a novel AI model to predict industry and sector for a nationwide job searching platform.",
+      achievements: [
+        "Prepared and cleaned large datasets consisting of over 70,000 samples to train the AI model",
+        "Achieved a model accuracy of over 85% on unseen data",
+        "Coordinated with a team of 5 peers to develop the model and present findings to C-level executives",
       ]
     }
   ];
 
   const education = [
     {
-      degree: "M.S. in Computer Science",
-      school: "Stanford University",
-      period: "2020 - 2022",
-      focus: "Machine Learning & AI",
-      gpa: "3.9/4.0"
+      degree: "B.S. in Computer Science",
+      school: "Brandeis University",
+      period: "2022 - 2025",
     },
     {
-      degree: "B.S. in Mathematics",
-      school: "UC Berkeley",
-      period: "2016 - 2020",
-      focus: "Statistics & Applied Mathematics",
-      gpa: "3.8/4.0"
+      degree: "B.S. in Applied Mathematics",
+      school: "Brandeis University",
+      period: "2022 - 2025",
+    },
+    {
+      degree: "Certificate of Foundations in Machine Learning",
+      school: "Cornell University",
+      period: "Summer 2024",
     }
   ];
 
   const skills = [
-    { category: "Programming", items: ["Python", "R", "JavaScript", "SQL", "C++"] },
-    { category: "ML/AI", items: ["PyTorch", "TensorFlow", "Scikit-learn", "Keras", "XGBoost"] },
-    { category: "Data", items: ["Pandas", "NumPy", "Matplotlib", "Seaborn", "Plotly"] },
-    { category: "Cloud", items: ["AWS", "Google Cloud", "Azure", "Docker", "Kubernetes"] },
-    { category: "Tools", items: ["Git", "Jupyter", "MLflow", "Apache Spark", "Tableau"] }
-  ];
-
-  const certifications = [
-    "AWS Certified Machine Learning - Specialty",
-    "Google Cloud Professional Data Engineer",
-    "Deep Learning Specialization - Coursera",
-    "Advanced Machine Learning - Stanford Online"
+    { category: "Programming", items: ["Python", "Java", "JavaScript", "Dart", "React"] },
+    { category: "ML/AI", items: ["PyTorch", "TensorFlow", "Scikit-learn", "Keras"] },
+    { category: "Data", items: ["Pandas", "NumPy", "Matplotlib", "Seaborn"] },
+    { category: "Cloud", items: ["AWS", "Google Cloud", "Azure", "Docker"] },
+    { category: "Tools", items: ["Git", "Jupyter"] },
+    { category: "Soft Skills", items: ["Teamwork", "Communication", "Problem Solving", "Adaptability", "Leadership"] },
+    { category: "Languages", items: ["English", "Italian"] }
   ];
 
   return (
@@ -94,35 +100,34 @@ export default function AboutPage() {
             About Me
           </h1>
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Passionate Machine Learning Engineer with 3+ years of experience building intelligent systems 
-            that solve real-world problems. I specialize in deep learning, computer vision, and NLP.
+            Senior undergraduate student at Brandeis University majoring in Computer Science and Applied Mathematics. Passionate about machine learning, AI, and software engineering. I have experience in developing production ML systems, creating intelligent applications, and working with large datasets.
           </p>
           
           {/* Contact Links */}
           <div className="flex justify-center space-x-4 mt-8">
             <a 
-              href="mailto:your.email@example.com"
+              href="mailto:michelangeloz03@gmail.com"
               className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               <Mail className="w-4 h-4" />
               <span>Email</span>
             </a>
             <a 
-              href="https://github.com"
+              href="https://github.com/mzampieri19"
               className="flex items-center space-x-2 px-4 py-2 bg-slate-800 text-white rounded-lg hover:bg-slate-700 transition-colors"
             >
               <Github className="w-4 h-4" />
               <span>GitHub</span>
             </a>
             <a 
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/michelangelo-zampieri-87675b288/"
               className="flex items-center space-x-2 px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors"
             >
               <Linkedin className="w-4 h-4" />
               <span>LinkedIn</span>
             </a>
             <a 
-              href="/resume.pdf"
+              href="/Users/michelangelozampieri/Desktop/ml-portfolio/app/about/Michelangelo_Zampieri_ML_Resume.pdf"
               className="flex items-center space-x-2 px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
             >
               <Download className="w-4 h-4" />
@@ -172,10 +177,8 @@ export default function AboutPage() {
               <div key={index} className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{edu.degree}</h3>
                 <p className="text-blue-600 dark:text-blue-400 font-medium mb-2">{edu.school}</p>
-                <p className="text-slate-600 dark:text-slate-300 mb-2">{edu.focus}</p>
                 <div className="flex justify-between items-center">
                   <span className="text-slate-500 dark:text-slate-400">{edu.period}</span>
-                  <span className="text-green-600 dark:text-green-400 font-medium">GPA: {edu.gpa}</span>
                 </div>
               </div>
             ))}
@@ -194,22 +197,6 @@ export default function AboutPage() {
                     <li key={idx} className="text-slate-600 dark:text-slate-300 text-sm">{skill}</li>
                   ))}
                 </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Certifications Section */}
-        <section>
-          <div className="flex items-center space-x-3 mb-8">
-            <Award className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white">Certifications</h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            {certifications.map((cert, index) => (
-              <div key={index} className="flex items-center space-x-3 bg-white dark:bg-slate-800 rounded-lg p-4 shadow-md border border-slate-200 dark:border-slate-700">
-                <Award className="w-5 h-5 text-green-600 dark:text-green-400" />
-                <span className="text-slate-700 dark:text-slate-300">{cert}</span>
               </div>
             ))}
           </div>

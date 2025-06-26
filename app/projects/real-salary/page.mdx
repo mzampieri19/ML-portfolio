@@ -66,22 +66,156 @@ export const metadata = {
 
 ## Project Overview
 
-This project was developed as part of the Break Through Tech AI (BTTAI) industry partnership program, working directly with Real Salary, a company focused on salary transparency and fair compensation practices. Our team conducted comprehensive data exploration and analysis, integrating OpenAI's LLM capabilities to enhance insights and automate analysis processes.
+This repository contains all work for **Group 12 - Team Real Salary**, an industry project completed for the Break Through Tech AI (BTTAI) program in Fall 2024. Our team worked directly with Real Salary, a company focused on salary transparency and data analysis.
 
-## Company Background
+### Team Members
 
-**Real Salary** is dedicated to promoting salary transparency and helping professionals understand fair compensation in their respective fields. The company collects and analyzes salary data to provide insights that benefit both employees and employers in making informed compensation decisions.
+**Authors:**
+1. Anh Le
+2. Cheyanne Atole  
+3. Hanh Pham
+4. Michelangelo Zampieri
 
-## Project Objectives
+**Teaching Assistant:**
+1. Caroline Cunningham
 
-1. **Data Exploration**: Comprehensive analysis of salary datasets
-2. **Pattern Recognition**: Identify trends and patterns in compensation data
-3. **LLM Integration**: Leverage OpenAI APIs for automated insights generation
-4. **Actionable Insights**: Provide data-driven recommendations for the company
+**Challenge Advisors:**
+1. Amy Shratter
+2. Chad Woodrick
+
+## Project Summary
+
+Our team conducted comprehensive **data exploration with integration of OpenAI LLM** capabilities to analyze job market data and predict industry classifications and job functions from company and role descriptions.
+
+### Key Objectives
+
+1. **Industry Classification**: Use LLM APIs to predict company industries from descriptions
+2. **Job Function Mapping**: Classify job roles into standardized job functions
+3. **Data Pipeline Development**: Create scalable prediction systems for Real Salary
+4. **Accuracy Optimization**: Achieve high prediction accuracy through prompt engineering
 
 ## Technical Implementation
 
-### Data Analysis Pipeline
+### Data Processing Pipeline
+
+The project utilized several datasets:
+
+**Original Datasets:**
+- `job_descriptions` - Original dataset from Kaggle
+- `filtered_country_work_type` - Data filtered by country and work type, nulls removed, company profile split into industry and sector
+- `mapped_sectors` - Mapped industry classifications to real-salary sector categories
+
+**Note**: Datasets are hidden due to size constraints but can be provided on request.
+
+### LLM Integration Journey
+
+#### 1. Initial Word Frequency Analysis
+- **File**: `word_frequency_analysis/Preliminary_Analysis.ipynb`
+- **Purpose**: Original word frequency analysis and preliminary data exploration
+- **Output**: Sector-specific JSON files with word frequencies in `sector_JSONs` directory
+- **Insight**: While relationships were found, they weren't immediately useful for the overall project goals
+
+#### 2. API Exploration - LLAMA
+- **File**: `testing/llama_api.ipynb`
+- **Purpose**: First attempt at using AI API for predictions
+- **Outcome**: Successful initial testing but required payment for continued use
+- **Decision**: Moved to local alternative for cost-effectiveness
+
+#### 3. OLLAMA Implementation (Final Solution)
+- **Files**: `testing/ollama.ipynb`, `ollama_output_10_26.txt`
+- **Advantages**: 
+  - **Local execution** (no internet connectivity issues)
+  - **Free to use** (no API costs)
+  - **Better performance** for our specific use case
+
+## Current Results
+
+### Performance Metrics
+
+**Industry Prediction Accuracy**: **65% average accuracy**
+- **Method**: Random company selection with accuracy testing
+- **Response Time**: 1:37 minutes for 50 entries
+- **Dataset**: Condensed list of industries based on challenge advisor recommendations
+
+**Improvement**: Original method achieved 60% accuracy, improved to 65% through methodology refinement.
+
+### Key Outputs
+
+#### Company Dictionary
+- **File**: `JSON_dictionaries/prediction_dictionary.json`
+- **Content**: Maps company names to predicted industries
+- **Purpose**: Final deliverable for challenge advisors
+
+#### Job Function Mapping
+- **File**: `JSON_dictionaries/job_function.json`
+- **Content**: Maps job roles to predicted job functions
+- **Input Features**: Job descriptions, responsibilities, and required skills
+
+## Project Structure
+
+### Core Analysis Files
+
+| File | Description |
+|------|-------------|
+| `analysis.ipynb` | Main analysis for industry prediction with shorter industry list |
+| `job_function.ipynb` | Notebook for job function prediction implementation |
+| `accuracy-test-ollama.ipynb` | First round of accuracy testing using OLLAMA model |
+
+### Testing Directory
+
+| File | Description |
+|------|-------------|
+| `api.py` | Metro area prediction API test (scrapped due to data issues) |
+| `llama_api.ipynb` | LLAMA3 API testing (discontinued for cost reasons) |
+| `ollama.ipynb` | OLLAMA API testing and implementation |
+| `ollama_output_10_26.txt` | Sample output from OLLAMA model testing |
+
+### Word Frequency Analysis
+
+| Directory/File | Description |
+|----------------|-------------|
+| `word_frequency_analysis/` | Complete directory of frequency analysis work |
+| `Preliminary_Analysis.ipynb` | Original word frequency analysis |
+| `sector_JSONs/` | JSON files with word frequencies by sector |
+| `selected_words_analysis/` | Directory for targeted word analysis |
+
+## Methodology Evolution
+
+### Phase 1: Data Understanding
+- Initial dataset preview and familiarization
+- Exploratory data analysis and visualization
+- Word frequency analysis across different sectors
+
+### Phase 2: API Development
+- Metro area prediction attempt (unsuccessful due to synthetic data)
+- LLAMA API exploration and testing
+- Cost-benefit analysis leading to OLLAMA adoption
+
+### Phase 3: OLLAMA Implementation
+- Local model setup and configuration
+- Prompt engineering for optimal results
+- Accuracy testing and methodology refinement
+
+### Phase 4: Production Pipeline
+- Dictionary construction for company-to-industry mapping
+- Job function classification system
+- Scalable prediction pipeline development
+
+## Expanding the System
+
+To expand the **industry and job function dictionaries**:
+
+1. **Industry Prediction**: Run `analysis.ipynb` to predict more industries
+2. **Job Function Prediction**: Run `job_function.ipynb` to predict more job functions
+3. **Batch Processing**: Both notebooks support batch processing for large datasets
+
+## Key Achievements
+
+- **65% prediction accuracy** for industry classification
+- **Cost-effective solution** using local OLLAMA implementation
+- **Scalable pipeline** for future data processing
+- **Complete documentation** and reproducible methodology
+- **Deliverable artifacts** ready for Real Salary implementation
 
 <CodeBlock language="python" title="Data Exploration Setup">
 {`import pandas as pd
@@ -105,8 +239,7 @@ print(df['salary'].describe())
 
 # Check for missing values
 print("\\nMissing Values:")
-print(df.isnull().sum())
-`}
+print(df.isnull().sum())`}
 </CodeBlock>
 
 ### Data Preprocessing
@@ -134,8 +267,7 @@ df_clean = df_clean[
 ]
 
 print(f"Removed {len(df) - len(df_clean)} outliers")
-print(f"Clean dataset shape: {df_clean.shape}")
-`}
+print(f"Clean dataset shape: {df_clean.shape}")`}
 </CodeBlock>
 
 ### OpenAI LLM Integration
@@ -175,19 +307,18 @@ def generate_salary_insights(data_summary):
     return response.choices[0].message.content
 
 # Generate data summary for LLM analysis
-summary = f"""
-Average Salary: ${df_clean['salary'].mean():,.2f}
-Median Salary: ${df_clean['salary'].median():,.2f}
-Salary Range: ${df_clean['salary'].min():,.2f} - ${df_clean['salary'].max():,.2f}
-Most Common Job Title: {df_clean['job_title'].mode()[0]}
-Average Experience: {df_clean['experience_years'].mean():.1f} years
-"""
+summary = (
+    "Average Salary: $" + str(df_clean['salary'].mean()) + "\\n" +
+    "Median Salary: $" + str(df_clean['salary'].median()) + "\\n" +
+    "Salary Range: $" + str(df_clean['salary'].min()) + " - $" + str(df_clean['salary'].max()) + "\\n" +
+    "Most Common Job Title: " + str(df_clean['job_title'].mode()[0]) + "\\n" +
+    "Average Experience: " + str(df_clean['experience_years'].mean()) + " years"
+)
 
 # Get AI-generated insights
 ai_insights = generate_salary_insights(summary)
 print("AI-Generated Insights:")
-print(ai_insights)
-`}
+print(ai_insights)`}
 </CodeBlock>
 
 ## Key Findings
@@ -232,8 +363,7 @@ axes[1, 1].set_title('Top 10 Highest Paying Jobs')
 axes[1, 1].set_xlabel('Average Salary ($)')
 
 plt.tight_layout()
-plt.show()
-`}
+plt.show()`}
 </CodeBlock>
 
 ## LLM-Enhanced Recommendations

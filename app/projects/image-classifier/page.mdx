@@ -52,26 +52,74 @@ export const metadata = {
     <span>Neural Network</span>
   </span>
 </div>
-## Overview
+## Project Overview
 
-This project implements a Convolutional Neural Network (CNN) to classify different types of satellite images into distinct classes. The model processes satellite imagery data and learns to distinguish between various geographical features and land use patterns.
+This repository contains an **image classification project** that uses deep learning to classify **satellite images from four distinct geographical areas**. The project includes comprehensive data preprocessing, model training, fine-tuning, and evaluation.
 
-## Key Features
+The goal of this project is to build a robust image classification model capable of accurately classifying satellite images into one of four classes representing different geographical regions.
 
-- **CNN Architecture**: Custom designed for satellite image classification
-- **Data Preprocessing**: Comprehensive data preparation pipeline for satellite imagery
-- **Multi-class Classification**: Capable of distinguishing between multiple satellite image categories
-- **Performance Optimization**: Fine-tuned for accuracy on satellite imagery data
+## Dataset
 
-## Project Highlights
+The dataset consists of **satellite images from four distinct geographical areas**, sourced from Kaggle. The dataset is organized into a directory structure with four subdirectories, each corresponding to a class.
 
-The satellite image classifier demonstrates practical applications of computer vision in geospatial analysis, enabling automated classification of land use patterns, urban development, and environmental monitoring from satellite data.
+### Data Split
+
+The data is split into three subsets:
+- **Training Set**: 70% of the data
+- **Validation Set**: 15% of the data  
+- **Test Set**: 15% of the data
+
+### Data Augmentation
+
+To improve model generalization, data augmentation techniques are applied to the training data:
+- **Rotation**: Random rotations to simulate different viewing angles
+- **Zoom**: Random zoom levels for scale variation
+- **Horizontal Flipping**: Mirror images for increased diversity
+
+## Model Architecture
+
+The project uses a **convolutional neural network (CNN)** built with TensorFlow/Keras. Key features of the architecture include:
+
+- **Multiple Convolutional Layers**: For hierarchical feature extraction
+- **Pooling Layers**: For spatial dimension reduction and feature consolidation
+- **Fully Connected Layers**: For final classification decisions
+- **Dropout Layers**: To prevent overfitting and improve generalization
+
+### Fine-Tuning
+
+The model was fine-tuned by:
+- **Unfreezing Specific Layers**: Allowing deeper layers to adapt to the specific dataset
+- **Lower Learning Rate**: Using reduced learning rates for stable fine-tuning
+- **Performance Optimization**: Iterative improvements to achieve better accuracy
+
+## Results
+
+### Performance Metrics
+
+**Training Performance:**
+- The best model achieved a **test accuracy of 94%** during initial training
+
+**Replication Testing:**  
+- When attempting to replicate results on the test data, the best model achieved an **accuracy of 71%**
+- This difference highlights the importance of proper validation and the challenges of model reproducibility
 
 ## Technical Implementation
-- **Data Augmentation**: Advanced techniques to improve generalization
-- **Transfer Learning**: Fine-tuned ResNet-50 for comparison
-- **Real-time Inference**: Web interface for live predictions
-- **Model Interpretability**: Grad-CAM visualizations
+
+### Project Structure
+
+The repository includes:
+- **`data/`**: Directory containing the satellite image dataset
+- **`data_output/`**: Processed data and intermediate outputs
+- **`models/`**: Saved model checkpoints and architectures
+- **`notebooks/`**: Jupyter notebooks with the complete implementation
+- **`model_results.csv`**: Detailed performance metrics and results
+
+### Key Features
+
+- **Satellite Image Classification**: Multi-class classification of geographical regions
+- **CNN Architecture**: Custom network design optimized for satellite imagery
+- **Data Augmentation Pipeline**: Comprehensive preprocessing for improved generalization
+- **Performance Analysis**: Detailed evaluation metrics and visualization
 
 ## Architecture
 
