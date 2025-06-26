@@ -5,32 +5,32 @@ import { ArrowRight, Brain, Code, Database, GitBranch } from "lucide-react";
 export default function Home() {
   const projects = [
     {
-      title: "Neural Network Image Classifier",
-      description: "Deep learning model for image classification using PyTorch and CNNs",
-      tags: ["PyTorch", "Computer Vision", "Deep Learning"],
-      slug: "image-classifier",
+      title: "DQN Flappy Bird",
+      description: "Created a DQN to train and play the game Flappy Bird",
+      tags: ["Reinforcement Learning", "From Scratch", "Neural Network"],
+      slug: "dqn-flappy-bird",
       featured: true
     },
     {
-      title: "Natural Language Processing",
-      description: "Sentiment analysis and text classification using transformers",
-      tags: ["NLP", "Transformers", "BERT"],
-      slug: "nlp-sentiment",
+      title: "Custom Diffusion Model",
+      description: "Diffusion model from scratch, includes encoding, decoding, UNET, DDPM, Diffusion",
+      tags: ["Diffusion", "From Scratch", "Neural Network", "GenAI"],
+      slug: "custom-diffusion-model",
       featured: true
     },
     {
-      title: "Time Series Forecasting",
-      description: "Stock price prediction using LSTM and statistical models",
-      tags: ["Time Series", "LSTM", "Finance"],
-      slug: "time-series",
-      featured: false
+      title: "Custom GPT LLM",
+      description: "GPT LLM from scratch, includes encoding, decoding, data extraction, and training",
+      tags: ["LLM", "GPT", "From Scratch", "Neural Network", "GenAI"],
+      slug: "custom-gpt-llm",
+      featured: true
     },
     {
-      title: "Recommendation System",
-      description: "Collaborative filtering system for movie recommendations",
-      tags: ["Recommender Systems", "Matrix Factorization"],
-      slug: "recommendation",
-      featured: false
+      title: "TAMID Image Classifier",
+      description: "CNN model created for the TAMID club to classify different types of plastics",
+      tags: ["CNN", "Group Work", "Startup", "Data Preparation"],
+      slug: "tamid-image-classifier",
+      featured: true
     }
   ];
 

@@ -4,35 +4,67 @@ import { Brain, Calendar, Tag } from "lucide-react";
 export default function ProjectsPage() {
   const projects = [
     {
-      title: "Neural Network Image Classifier",
-      description: "Deep learning model for image classification using PyTorch and CNNs",
-      tags: ["PyTorch", "Computer Vision", "Deep Learning"],
+      title: "DQN Flappy Bird",
+      description: "Created a DQN to train and play the game Flappy Bird",
+      tags: ["Reinforcement Learning", "From Scratch", "Neural Network"],
+      slug: "dqn-flappy-bird",
+      date: "2025-06",
+      status: "Completed"
+    },
+    {
+      title: "Custom Diffusion Model",
+      description: "Diffusion model from scratch, includes encoding, decoding, UNET, DDPM, Diffusion",
+      tags: ["Diffusion", "From Scratch", "Neural Network", "GenAI"],
+      slug: "custom-diffusion-model",
+      date: "2025-06",
+      status: "Completed"
+    },
+    {
+      title: "Custom GPT LLM",
+      description: "GPT LLM from scratch, includes encoding, decoding, data extraction, and training",
+      tags: ["LLM", "GPT", "From Scratch", "Neural Network", "GenAI"],
+      slug: "custom-gpt-llm",
+      date: "2025-06",
+      status: "Completed"
+    },
+    {
+      title: "TAMID Image Classifier",
+      description: "CNN model created for the TAMID club to classify different types of plastics",
+      tags: ["CNN", "Group Work", "Startup", "Data Preparation"],
+      slug: "tamid-image-classifier",
+      date: "2025-03",
+      status: "Completed"
+    },
+    {
+      title: "Image Classifier",
+      description: "CNN model to classify different satellite images into different classes",
+      tags: ["CNN", "Data Preparation", "Neural Network"],
       slug: "image-classifier",
+      date: "2025-02",
+      status: "Completed"
+    },
+    {
+      title: "Clustering Exploration",
+      description: "Exploration of various clustering techniques on financial data",
+      tags: ["Clustering", "Supervised Learning", "TSNE", "KMEANS"],
+      slug: "clustering-exploration",
+      date: "2025-02",
+      status: "Completed"
+    },
+    {
+      title: "Real Salary",
+      description: "Group work for the BTTAI industry project with the company Real Salary",
+      tags: ["Data Science", "Group Work", "Data Analysis", "LLMs"],
+      slug: "real-salary",
       date: "2024-12",
       status: "Completed"
     },
     {
-      title: "Natural Language Processing",
-      description: "Sentiment analysis and text classification using transformers",
-      tags: ["NLP", "Transformers", "BERT"],
-      slug: "nlp-sentiment",
-      date: "2024-11",
-      status: "Completed"
-    },
-    {
-      title: "Time Series Forecasting",
-      description: "Stock price prediction using LSTM and statistical models",
-      tags: ["Time Series", "LSTM", "Finance"],
-      slug: "time-series",
-      date: "2024-10",
-      status: "In Progress"
-    },
-    {
-      title: "Recommendation System",
-      description: "Collaborative filtering system for movie recommendations",
-      tags: ["Recommender Systems", "Matrix Factorization"],
-      slug: "recommendation",
-      date: "2024-09",
+      title: "Break-Through-Tech-AI-2024",
+      description: "A collection of various projects, created in the BTTAI program 2024 cohort",
+      tags: ["Introduction", "Data Science", "CNN", "Regression", "Random Forest"],
+      slug: "break-through-tech-ai",
+      date: "2024-08",
       status: "Completed"
     }
   ];

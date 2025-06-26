@@ -1,0 +1,305 @@
+import { Suspense } from 'react';
+import Link from 'next/link';
+import { ArrowLeft, ExternalLink, Github, Calendar, Clock, Tag, Users } from 'lucide-react';
+import CodeBlock from '../../components/CodeBlock';
+
+export const metadata = {
+  title: 'Real Salary - ML Portfolio',
+  description: 'Group work for the BTTAI industry project with the company Real Salary',
+};
+
+# Real Salary
+
+<div className="flex items-center justify-between mb-8 p-6 bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-2xl border border-orange-200 dark:border-orange-800">
+  <div>
+    <div className="flex items-center space-x-4 text-sm text-slate-600 dark:text-slate-400 mb-2">
+      <div className="flex items-center space-x-1">
+        <Calendar className="w-4 h-4" />
+        <span>Fall 2024</span>
+      </div>
+      <div className="flex items-center space-x-1">
+        <Clock className="w-4 h-4" />
+        <span>6 min read</span>
+      </div>
+      <div className="flex items-center space-x-1">
+        <Users className="w-4 h-4" />
+        <span>Group Project</span>
+      </div>
+    </div>
+    <p className="text-lg text-slate-700 dark:text-slate-300">
+      Data exploration and analysis with OpenAI LLM integration for Real Salary company
+    </p>
+  </div>
+  <div className="flex space-x-3">
+    <a 
+      href="https://github.com/mzampieri19/real-salary" 
+      className="flex items-center space-x-2 px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg hover:bg-slate-700 dark:hover:bg-slate-200 transition-colors"
+    >
+      <Github className="w-4 h-4" />
+      <span>Code</span>
+    </a>
+  </div>
+</div>
+
+<div className="flex flex-wrap gap-2 mb-8">
+  <span className="flex items-center space-x-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-sm font-medium rounded-full">
+    <Tag className="w-3 h-3" />
+    <span>Data Science</span>
+  </span>
+  <span className="flex items-center space-x-1 px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-sm font-medium rounded-full">
+    <Tag className="w-3 h-3" />
+    <span>Group Work</span>
+  </span>
+  <span className="flex items-center space-x-1 px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 text-sm font-medium rounded-full">
+    <Tag className="w-3 h-3" />
+    <span>Data Analysis</span>
+  </span>
+  <span className="flex items-center space-x-1 px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 text-sm font-medium rounded-full">
+    <Tag className="w-3 h-3" />
+    <span>LLMs</span>
+  </span>
+  <span className="flex items-center space-x-1 px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 text-sm font-medium rounded-full">
+    <Tag className="w-3 h-3" />
+    <span>Data Preparation</span>
+  </span>
+</div>
+
+## Project Overview
+
+This project was developed as part of the Break Through Tech AI (BTTAI) industry partnership program, working directly with Real Salary, a company focused on salary transparency and fair compensation practices. Our team conducted comprehensive data exploration and analysis, integrating OpenAI's LLM capabilities to enhance insights and automate analysis processes.
+
+## Company Background
+
+**Real Salary** is dedicated to promoting salary transparency and helping professionals understand fair compensation in their respective fields. The company collects and analyzes salary data to provide insights that benefit both employees and employers in making informed compensation decisions.
+
+## Project Objectives
+
+1. **Data Exploration**: Comprehensive analysis of salary datasets
+2. **Pattern Recognition**: Identify trends and patterns in compensation data
+3. **LLM Integration**: Leverage OpenAI APIs for automated insights generation
+4. **Actionable Insights**: Provide data-driven recommendations for the company
+
+## Technical Implementation
+
+### Data Analysis Pipeline
+
+<CodeBlock language="python" title="Data Exploration Setup">
+{`import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from openai import OpenAI
+import warnings
+warnings.filterwarnings('ignore')
+
+# Load and explore the salary dataset
+df = pd.read_csv('salary_data.csv')
+
+# Basic data exploration
+print("Dataset Shape:", df.shape)
+print("\\nColumn Information:")
+print(df.info())
+
+print("\\nSalary Statistics:")
+print(df['salary'].describe())
+
+# Check for missing values
+print("\\nMissing Values:")
+print(df.isnull().sum())
+`}
+</CodeBlock>
+
+### Data Preprocessing
+
+Our team implemented comprehensive data cleaning and preparation processes:
+
+<CodeBlock language="python" title="Data Cleaning Process">
+{`# Handle missing values
+df_clean = df.copy()
+
+# Fill missing values based on domain knowledge
+df_clean['experience_years'].fillna(df_clean['experience_years'].median(), inplace=True)
+df_clean['education_level'].fillna('Unknown', inplace=True)
+
+# Remove outliers using IQR method
+Q1 = df_clean['salary'].quantile(0.25)
+Q3 = df_clean['salary'].quantile(0.75)
+IQR = Q3 - Q1
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+df_clean = df_clean[
+    (df_clean['salary'] >= lower_bound) & 
+    (df_clean['salary'] <= upper_bound)
+]
+
+print(f"Removed {len(df) - len(df_clean)} outliers")
+print(f"Clean dataset shape: {df_clean.shape}")
+`}
+</CodeBlock>
+
+### OpenAI LLM Integration
+
+A key innovation of this project was integrating OpenAI's language models to generate automated insights:
+
+<CodeBlock language="python" title="LLM Integration for Analysis">
+{`import openai
+from openai import OpenAI
+
+client = OpenAI(api_key='your-api-key')
+
+def generate_salary_insights(data_summary):
+    """Generate insights using OpenAI GPT model"""
+    prompt = f"""
+    Analyze the following salary data summary and provide key insights:
+    
+    {data_summary}
+    
+    Please provide:
+    1. Key trends observed
+    2. Notable patterns or anomalies
+    3. Recommendations for salary transparency
+    4. Potential areas for further investigation
+    """
+    
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a data analyst expert in compensation analysis."},
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens=500,
+        temperature=0.7
+    )
+    
+    return response.choices[0].message.content
+
+# Generate data summary for LLM analysis
+summary = f"""
+Average Salary: ${df_clean['salary'].mean():,.2f}
+Median Salary: ${df_clean['salary'].median():,.2f}
+Salary Range: ${df_clean['salary'].min():,.2f} - ${df_clean['salary'].max():,.2f}
+Most Common Job Title: {df_clean['job_title'].mode()[0]}
+Average Experience: {df_clean['experience_years'].mean():.1f} years
+"""
+
+# Get AI-generated insights
+ai_insights = generate_salary_insights(summary)
+print("AI-Generated Insights:")
+print(ai_insights)
+`}
+</CodeBlock>
+
+## Key Findings
+
+### Salary Distribution Analysis
+
+Our analysis revealed several important patterns in the compensation data:
+
+1. **Industry Variations**: Significant salary differences across industries
+2. **Experience Impact**: Strong correlation between years of experience and compensation
+3. **Geographic Trends**: Location-based salary variations
+4. **Education Premium**: Clear compensation benefits for advanced degrees
+
+### Visualization Dashboard
+
+<CodeBlock language="python" title="Comprehensive Visualization">
+{`# Create comprehensive salary analysis dashboard
+fig, axes = plt.subplots(2, 2, figsize=(15, 12))
+
+# Salary distribution
+axes[0, 0].hist(df_clean['salary'], bins=30, alpha=0.7, color='skyblue')
+axes[0, 0].set_title('Salary Distribution')
+axes[0, 0].set_xlabel('Salary ($)')
+axes[0, 0].set_ylabel('Frequency')
+
+# Salary by experience
+sns.scatterplot(data=df_clean, x='experience_years', y='salary', ax=axes[0, 1])
+axes[0, 1].set_title('Salary vs Experience')
+axes[0, 1].set_xlabel('Years of Experience')
+axes[0, 1].set_ylabel('Salary ($)')
+
+# Salary by education level
+df_clean.boxplot(column='salary', by='education_level', ax=axes[1, 0])
+axes[1, 0].set_title('Salary by Education Level')
+axes[1, 0].set_xlabel('Education Level')
+axes[1, 0].set_ylabel('Salary ($)')
+
+# Top 10 highest paying job titles
+top_jobs = df_clean.groupby('job_title')['salary'].mean().nlargest(10)
+top_jobs.plot(kind='barh', ax=axes[1, 1])
+axes[1, 1].set_title('Top 10 Highest Paying Jobs')
+axes[1, 1].set_xlabel('Average Salary ($)')
+
+plt.tight_layout()
+plt.show()
+`}
+</CodeBlock>
+
+## LLM-Enhanced Recommendations
+
+Using the integrated OpenAI model, we generated several key recommendations for Real Salary:
+
+1. **Salary Benchmarking Tool**: Develop automated salary comparison features
+2. **Market Analysis**: Regular market trend analysis using AI insights
+3. **Personalized Recommendations**: Custom salary guidance based on individual profiles
+4. **Bias Detection**: Use AI to identify potential compensation biases
+
+## Team Collaboration
+
+This project showcased effective collaboration in a data science team environment:
+
+- **Data Engineering**: Collaborative data pipeline development
+- **Analysis Division**: Team members specialized in different analytical aspects
+- **Code Review**: Peer review process for quality assurance
+- **Documentation**: Comprehensive project documentation and knowledge sharing
+
+## Impact and Results
+
+The project delivered significant value to Real Salary:
+
+- **Data-Driven Insights**: Comprehensive analysis of salary trends
+- **Automation**: Streamlined analysis processes using LLM integration
+- **Scalable Solutions**: Reusable code and methodologies for future analysis
+- **Strategic Recommendations**: Actionable insights for business development
+
+## Technical Stack
+
+- **Python**: Primary programming language
+- **Pandas/NumPy**: Data manipulation and analysis
+- **Matplotlib/Seaborn**: Data visualization
+- **OpenAI API**: LLM integration for automated insights
+- **Jupyter Notebooks**: Development and analysis environment
+- **Git**: Version control and collaboration
+
+## Key Learnings
+
+This industry partnership provided valuable experience in:
+
+1. **Real-World Data**: Working with actual business datasets and constraints
+2. **Stakeholder Communication**: Presenting technical findings to business audiences
+3. **AI Integration**: Practical application of LLMs in data analysis workflows
+4. **Team Dynamics**: Collaborative development in a professional context
+
+## Future Applications
+
+The methodologies developed in this project have broader applications:
+
+- **HR Analytics**: Employee compensation analysis
+- **Market Research**: Industry salary trend analysis
+- **Career Guidance**: Personal career development insights
+- **Policy Research**: Economic and labor market analysis
+
+<div className="mt-12 p-6 bg-slate-50 dark:bg-slate-800 rounded-2xl">
+  <div className="mb-4">
+    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Project Recognition</h3>
+    <p className="text-slate-600 dark:text-slate-300">
+      This project was completed as part of the Break Through Tech AI industry partnership program, 
+      demonstrating successful collaboration between academic learning and real-world business applications.
+    </p>
+  </div>
+  <Link href="/projects" className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+    <ArrowLeft className="w-4 h-4" />
+    <span>Back to Projects</span>
+  </Link>
+</div>
