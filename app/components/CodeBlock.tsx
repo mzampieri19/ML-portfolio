@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Copy, Check } from 'lucide-react';
 
 interface CodeBlockProps {
-  children: string;
+  children: string | React.ReactNode;
   language: string;
   filename?: string;
 }
@@ -14,8 +14,40 @@ interface CodeBlockProps {
 export default function CodeBlock({ children, language, filename }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
+  // Ensure children is always a string
+  const codeContent = React.useMemo(() => {
+    // Debug: log the type and structure of children
+    console.log('CodeBlock children:', typeof children, children);
+    
+    if (typeof children === 'string') {
+      return children;
+    }
+    
+    // Handle arrays (multiple children)
+    if (Array.isArray(children)) {
+      return children.join('');
+    }
+    
+    // Handle React elements - try to extract text content
+    if (React.isValidElement(children)) {
+      // For simple text elements, try to get the text
+      const props = children.props as any;
+      if (props?.children && typeof props.children === 'string') {
+        return props.children;
+      }
+    }
+    
+    // Handle null, undefined, numbers, etc.
+    if (children == null) {
+      return '';
+    }
+    
+    // Fallback: convert to string
+    return String(children);
+  }, [children]);
+
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(children);
+    await navigator.clipboard.writeText(codeContent);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -56,7 +88,7 @@ export default function CodeBlock({ children, language, filename }: CodeBlockPro
           showLineNumbers={true}
           wrapLines={true}
         >
-          {children}
+          {codeContent}
         </SyntaxHighlighter>
       </div>
     </div>
