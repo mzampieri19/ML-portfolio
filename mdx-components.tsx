@@ -1,12 +1,29 @@
 import type { MDXComponents } from 'mdx/types'
 import CodeBlock from './app/components/CodeBlock'
 import InteractiveDemo from './app/components/InteractiveDemo'
+import Table, { 
+  TableHeader, 
+  TableBody, 
+  TableRow, 
+  TableCell, 
+  MetricsTable, 
+  ClassificationTable, 
+  FileTable 
+} from './app/components/Table'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     // Custom components
     CodeBlock,
     InteractiveDemo,
+    Table,
+    TableHeader,
+    TableBody,
+    TableRow,
+    TableCell,
+    MetricsTable,
+    ClassificationTable,
+    FileTable,
     
     // Enhanced HTML elements
     h1: ({ children, ...props }) => (
