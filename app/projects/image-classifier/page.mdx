@@ -1,8 +1,4 @@
 import { Suspense } from 'react';
-import Link from 'next/link';
-import { ArrowLeft, ExternalLink, Github, Calendar, Clock, Tag } from 'lucide-react';
-import CodeBlock from '../../components/CodeBlock';
-import InteractiveDemo from '../../components/InteractiveDemo';
 
 export const metadata = {
   title: 'Satellite Image Classifier - ML Portfolio',
@@ -11,47 +7,21 @@ export const metadata = {
 
 # Satellite Image Classifier
 
-<div className="flex items-center justify-between mb-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl border border-blue-200 dark:border-blue-800">
-  <div>
-    <div className="flex items-center space-x-4 text-sm text-slate-600 dark:text-slate-400 mb-2">
-      <div className="flex items-center space-x-1">
-        <Calendar className="w-4 h-4" />
-        <span>Winter 2025</span>
-      </div>
-      <div className="flex items-center space-x-1">
-        <Clock className="w-4 h-4" />
-        <span>5 min read</span>
-      </div>
-    </div>
-    <p className="text-lg text-slate-700 dark:text-slate-300">
-      CNN model to classify different satellite images into different classes
-    </p>
-  </div>
-  <div className="flex space-x-3">
-    <a 
-      href="https://github.com/mzampieri19/image_classifier" 
-      className="flex items-center space-x-2 px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg hover:bg-slate-700 dark:hover:bg-slate-200 transition-colors"
-    >
-      <Github className="w-4 h-4" />
-      <span>Code</span>
-    </a>
-  </div>
-</div>
+<ProjectHeader
+  title="Satellite Image Classifier"
+  date="Winter 2025"
+  readTime="5 min read"
+  description="CNN model to classify different satellite images into different classes"
+  githubUrl="https://github.com/mzampieri19/image_classifier"
+  gradientFrom="from-blue-50 to-purple-50"
+  gradientTo="dark:from-blue-900/20 dark:to-purple-900/20"
+  borderColor="border-blue-200 dark:border-blue-800"
+/>
 
-<div className="flex flex-wrap gap-2 mb-8">
-  <span className="flex items-center space-x-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-sm font-medium rounded-full">
-    <Tag className="w-3 h-3" />
-    <span>CNN</span>
-  </span>
-  <span className="flex items-center space-x-1 px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-sm font-medium rounded-full">
-    <Tag className="w-3 h-3" />
-    <span>Data Preparation</span>
-  </span>
-  <span className="flex items-center space-x-1 px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 text-sm font-medium rounded-full">
-    <Tag className="w-3 h-3" />
-    <span>Neural Network</span>
-  </span>
-</div>
+<ProjectTags 
+  tags={['CNN', 'Data Preparation', 'Neural Network']}
+  colorScheme="blue"
+/>
 ## Project Overview
 
 This repository contains an **image classification project** that uses deep learning to classify **satellite images from four distinct geographical areas**. The project includes comprehensive data preprocessing, model training, fine-tuning, and evaluation.
@@ -158,55 +128,6 @@ The repository includes:
 - **Data Augmentation Pipeline**: Comprehensive preprocessing for improved generalization
 - **Performance Analysis**: Detailed evaluation metrics and visualization
 
-## Architecture
-
-The CNN architecture consists of several convolutional blocks with batch normalization and dropout for regularization:
-
-<CodeBlock language="python" filename="model.py">
-{`import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-class ImageClassifier(nn.Module):
-    def __init__(self, num_classes=10):
-        super(ImageClassifier, self).__init__()
-        
-        # First convolutional block
-        self.conv1 = nn.Conv2d(3, 32, kernel_size=3, padding=1)
-        self.bn1 = nn.BatchNorm2d(32)
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
-        self.bn2 = nn.BatchNorm2d(64)
-        
-        # Second convolutional block
-        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
-        self.bn3 = nn.BatchNorm2d(128)
-        self.conv4 = nn.Conv2d(128, 256, kernel_size=3, padding=1)
-        self.bn4 = nn.BatchNorm2d(256)
-        
-        # Classifier
-        self.dropout = nn.Dropout(0.5)
-        self.fc1 = nn.Linear(256 * 8 * 8, 512)
-        self.fc2 = nn.Linear(512, num_classes)
-        
-    def forward(self, x):
-        # First block
-        x = F.relu(self.bn1(self.conv1(x)))
-        x = F.relu(self.bn2(self.conv2(x)))
-        x = F.max_pool2d(x, 2)
-        
-        # Second block
-        x = F.relu(self.bn3(self.conv3(x)))
-        x = F.relu(self.bn4(self.conv4(x)))
-        x = F.max_pool2d(x, 2)
-        
-        # Classifier
-        x = x.view(x.size(0), -1)
-        x = self.dropout(F.relu(self.fc1(x)))
-        x = self.fc2(x)
-        
-        return x`}
-</CodeBlock>
-
 ## Training Process
 
 The model was trained using the following configuration:
@@ -218,62 +139,19 @@ The model was trained using the following configuration:
 - **Data Augmentation**: Random crops, horizontal flips, and color jittering
 
 <CodeBlock language="python" filename="train.py">
-{`import torch
-import torch.optim as optim
-from torch.utils.data import DataLoader
-import torchvision.transforms as transforms
-
-# Data augmentation and normalization
-transform_train = transforms.Compose([
-    transforms.RandomCrop(32, padding=4),
-    transforms.RandomHorizontalFlip(),
-    transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
-    transforms.ToTensor(),
-    transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
-])
-
-# Training loop
-def train_model(model, train_loader, val_loader, num_epochs=100):
-    optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-4)
-    criterion = nn.CrossEntropyLoss()
-    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1)
-    
-    best_acc = 0.0
-    
-    for epoch in range(num_epochs):
-        model.train()
-        running_loss = 0.0
-        
-        for inputs, labels in train_loader:
-            optimizer.zero_grad()
-            outputs = model(inputs)
-            loss = criterion(outputs, labels)
-            loss.backward()
-            optimizer.step()
-            
-            running_loss += loss.item()
-        
-        # Validation
-        val_acc = evaluate_model(model, val_loader)
-        
-        if val_acc > best_acc:
-            best_acc = val_acc
-            torch.save(model.state_dict(), 'best_model.pth')
-        
-        scheduler.step()
-        
-        print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {running_loss/len(train_loader):.4f}, Val Acc: {val_acc:.4f}')
-    
-    return model`}
+{`model.compile(
+    loss="categorical_crossentropy",
+    optimizer='rmsprop',
+    metrics=["accuracy"]
+)
+lr_schedule = tf.keras.callbacks.LearningRateScheduler(lambda epoch: 1e-4 * 10**(-epoch / 10))
+history = model.fit(
+    train_generator,
+    epochs=10,
+    validation_data=validation_generator,
+    callbacks=[lr_schedule]
+)`}
 </CodeBlock>
-
-## Interactive Demo
-
-Try the model yourself! Upload an image below to see the classification results:
-
-<Suspense fallback={<div className="p-8 text-center">Loading demo...</div>}>
-  <InteractiveDemo />
-</Suspense>
 
 ## Results and Analysis
 
@@ -318,56 +196,12 @@ The model performs exceptionally well on most classes, with slight confusion bet
 - **Class Imbalance**: Used weighted loss function for better performance
 - **Hyperparameter Tuning**: Systematic grid search for optimal configuration
 
-## Future Improvements
-
-- [ ] **Vision Transformers**: Experiment with attention-based architectures
-- [ ] **Model Compression**: Implement pruning and quantization
-- [ ] **Multi-task Learning**: Extend to object detection and segmentation
-- [ ] **Edge Deployment**: Optimize for mobile and embedded devices
-
 ## Conclusion
 
 This project successfully demonstrates the power of CNNs for image classification. The combination of careful architecture design, proper regularization, and extensive data augmentation resulted in a robust model that generalizes well to unseen data.
 
 The implementation serves as a solid foundation for more complex computer vision tasks and provides insights into deep learning best practices.
 
----
+<ProjectNavigation colorScheme="blue" />
 
-<div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
-  <Link 
-    href="/projects" 
-    className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
-  >
-    <ArrowLeft className="w-4 h-4 mr-2" />
-    Back to Projects
-  </Link>
-</div>
-
-export default function Layout({ children }) {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-      {/* Navigation */}
-      <nav className="border-b border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="text-xl font-bold text-slate-900 dark:text-white">ML Portfolio</span>
-            </Link>
-            <div className="hidden md:flex space-x-8">
-              <Link href="/" className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                Home
-              </Link>
-              <Link href="/projects" className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                Projects
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-      
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 prose prose-slate dark:prose-invert prose-lg max-w-none">
-        {children}
-      </article>
-    </div>
-  );
-}
+<ProjectLayout gradientFrom="from-slate-50" gradientTo="to-blue-50" gradientVia="via-white" />

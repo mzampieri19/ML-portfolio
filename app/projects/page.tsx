@@ -66,6 +66,14 @@ export default function ProjectsPage() {
       slug: "break-through-tech-ai",
       date: "2024-08",
       status: "Completed"
+    },
+    {
+      title: "example-project",
+      description: "This is an example project to showcase the structure of a project page",
+      tags: ["Example", "Template"],
+      slug: "example-project",
+      date: "2024-01",
+      status: "Completed"
     }
   ];
 

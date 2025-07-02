@@ -1,7 +1,3 @@
-import Link from 'next/link';
-import { ArrowLeft, ExternalLink, Github, Calendar, Clock, Tag, Recycle, Users, Target } from 'lucide-react';
-import CodeBlock from '../../components/CodeBlock';
-
 export const metadata = {
   title: 'TAMID Plastic Classifier - ML Portfolio',
   description: 'CNN model created for the TAMID club to classify different types of plastics with bounding boxes',
@@ -9,44 +5,21 @@ export const metadata = {
 
 # TAMID Plastic Image Classifier
 
-<div className="flex items-center justify-between mb-8 p-6 bg-gradient-to-r from-emerald-50 to-cyan-50 dark:from-emerald-900/20 dark:to-cyan-900/20 rounded-2xl border border-emerald-200 dark:border-emerald-800">
-  <div>
-    <div className="flex items-center space-x-4 text-sm text-slate-600 dark:text-slate-400 mb-2">
-      <div className="flex items-center space-x-1">
-        <Calendar className="w-4 h-4" />
-        <span>Winter - Spring 2025</span>
-      </div>
-      <div className="flex items-center space-x-1">
-        <Clock className="w-4 h-4" />
-        <span>7 min read</span>
-      </div>
-    </div>
-    <p className="text-lg text-slate-700 dark:text-slate-300">
-      CNN model with object detection for automatic plastic type classification to support recycling initiatives
-    </p>
-  </div>
-  <div className="flex space-x-3">
-    <a 
-      href="https://github.com/mzampieri19/TAMID-Group-New" 
-      className="flex items-center space-x-2 px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg hover:bg-slate-700 dark:hover:bg-slate-200 transition-colors"
-    >
-      <Github className="w-4 h-4" />
-      <span>Code</span>
-    </a>
-  </div>
-</div>
+<ProjectHeader
+  title="TAMID Plastic Image Classifier"
+  date="Winter - Spring 2025"
+  readTime="7 min read"
+  description="CNN model with object detection for automatic plastic type classification to support recycling initiatives"
+  githubUrl="https://github.com/mzampieri19/TAMID-Group-New"
+  gradientFrom="from-emerald-50 to-cyan-50"
+  gradientTo="dark:from-emerald-900/20 dark:to-cyan-900/20"
+  borderColor="border-emerald-200 dark:border-emerald-800"
+/>
 
-<div className="flex flex-wrap gap-2 mb-8">
-  {['CNN', 'Group Work', 'Startup', 'Data Preparation', 'Object Detection', 'YOLO', 'Sustainability'].map((tag) => (
-    <span 
-      key={tag}
-      className="flex items-center space-x-1 px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300 text-sm font-medium rounded-full"
-    >
-      <Tag className="w-3 h-3" />
-      <span>{tag}</span>
-    </span>
-  ))}
-</div>
+<ProjectTags 
+  tags={['CNN', 'Group Work', 'Startup', 'Data Preparation', 'Object Detection', 'YOLO', 'Sustainability']}
+  colorScheme="emerald"
+/>
 
 ## Project Overview
 
@@ -377,43 +350,6 @@ This project showcases the importance of:
 
 The success of this project has led to continued collaboration with TAMID and potential commercialization opportunities, demonstrating the value of academic-industry partnerships in solving real-world problems.
 
----
+<ProjectNavigation colorScheme="emerald" />
 
-<div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
-  <Link 
-    href="/projects" 
-    className="inline-flex items-center text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
-  >
-    <ArrowLeft className="w-4 h-4 mr-2" />
-    Back to Projects
-  </Link>
-</div>
-
-export default function Layout({ children }) {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-      {/* Navigation */}
-      <nav className="border-b border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="text-xl font-bold text-slate-900 dark:text-white">ML Portfolio</span>
-            </Link>
-            <div className="hidden md:flex space-x-8">
-              <Link href="/" className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                Home
-              </Link>
-              <Link href="/projects" className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                Projects
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-      
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 prose prose-slate dark:prose-invert prose-lg max-w-none">
-        {children}
-      </article>
-    </div>
-  );
-}
+<ProjectLayout gradientFrom="from-slate-50" gradientTo="to-emerald-50" gradientVia="via-white" />

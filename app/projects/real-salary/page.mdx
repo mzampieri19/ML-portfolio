@@ -105,7 +105,7 @@ The project utilized several datasets:
 - `filtered_country_work_type` - Data filtered by country and work type, nulls removed, company profile split into industry and sector
 - `mapped_sectors` - Mapped industry classifications to real-salary sector categories
 
-**Note**: Datasets are hidden due to size constraints but can be provided on request.
+**Note**: Datasets are hidden due to size constraints.
 
 ### LLM Integration Journey
 
@@ -155,29 +155,35 @@ The project utilized several datasets:
 
 ### Core Analysis Files
 
-| File | Description |
-|------|-------------|
-| `analysis.ipynb` | Main analysis for industry prediction with shorter industry list |
-| `job_function.ipynb` | Notebook for job function prediction implementation |
-| `accuracy-test-ollama.ipynb` | First round of accuracy testing using OLLAMA model |
+<FileTable
+  files={[
+    { file: "analysis.ipynb", description: "Main analysis for industry prediction with shorter industry list" },
+    { file: "job_function.ipynb", description: "Notebook for job function prediction implementation" },
+    { file: "accuracy-test-ollama.ipynb", description: "First round of accuracy testing using OLLAMA model" }
+  ]}
+/>
 
 ### Testing Directory
 
-| File | Description |
-|------|-------------|
-| `api.py` | Metro area prediction API test (scrapped due to data issues) |
-| `llama_api.ipynb` | LLAMA3 API testing (discontinued for cost reasons) |
-| `ollama.ipynb` | OLLAMA API testing and implementation |
-| `ollama_output_10_26.txt` | Sample output from OLLAMA model testing |
+<FileTable
+  files={[
+    { file: "api.py", description: "Metro area prediction API test (scrapped due to data issues)" },
+    { file: "llama_api.ipynb", description: "LLAMA3 API testing (discontinued for cost reasons)" },
+    { file: "ollama.ipynb", description: "OLLAMA API testing and implementation" },
+    { file: "ollama_output_10_26.txt", description: "Sample output from OLLAMA model testing" }
+  ]}
+/>
 
 ### Word Frequency Analysis
 
-| Directory/File | Description |
-|----------------|-------------|
-| `word_frequency_analysis/` | Complete directory of frequency analysis work |
-| `Preliminary_Analysis.ipynb` | Original word frequency analysis |
-| `sector_JSONs/` | JSON files with word frequencies by sector |
-| `selected_words_analysis/` | Directory for targeted word analysis |
+<FileTable
+  files={[
+    { file: "word_frequency_analysis/", description: "Complete directory of frequency analysis work" },
+    { file: "Preliminary_Analysis.ipynb", description: "Original word frequency analysis" },
+    { file: "sector_JSONs/", description: "JSON files with word frequencies by sector" },
+    { file: "selected_words_analysis/", description: "Directory for targeted word analysis" }
+  ]}
+/>
 
 ## Methodology Evolution
 
@@ -217,108 +223,40 @@ To expand the **industry and job function dictionaries**:
 - **Complete documentation** and reproducible methodology
 - **Deliverable artifacts** ready for Real Salary implementation
 
-<CodeBlock language="python" title="Data Exploration Setup">
-{`import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from openai import OpenAI
-import warnings
-warnings.filterwarnings('ignore')
-
-# Load and explore the salary dataset
-df = pd.read_csv('salary_data.csv')
-
-# Basic data exploration
-print("Dataset Shape:", df.shape)
-print("\\nColumn Information:")
-print(df.info())
-
-print("\\nSalary Statistics:")
-print(df['salary'].describe())
-
-# Check for missing values
-print("\\nMissing Values:")
-print(df.isnull().sum())`}
-</CodeBlock>
-
-### Data Preprocessing
-
-Our team implemented comprehensive data cleaning and preparation processes:
-
-<CodeBlock language="python" title="Data Cleaning Process">
-{`# Handle missing values
-df_clean = df.copy()
-
-# Fill missing values based on domain knowledge
-df_clean['experience_years'].fillna(df_clean['experience_years'].median(), inplace=True)
-df_clean['education_level'].fillna('Unknown', inplace=True)
-
-# Remove outliers using IQR method
-Q1 = df_clean['salary'].quantile(0.25)
-Q3 = df_clean['salary'].quantile(0.75)
-IQR = Q3 - Q1
-lower_bound = Q1 - 1.5 * IQR
-upper_bound = Q3 + 1.5 * IQR
-
-df_clean = df_clean[
-    (df_clean['salary'] >= lower_bound) & 
-    (df_clean['salary'] <= upper_bound)
-]
-
-print(f"Removed {len(df) - len(df_clean)} outliers")
-print(f"Clean dataset shape: {df_clean.shape}")`}
-</CodeBlock>
-
 ### OpenAI LLM Integration
 
-A key innovation of this project was integrating OpenAI's language models to generate automated insights:
-
 <CodeBlock language="python" title="LLM Integration for Analysis">
-{`import openai
-from openai import OpenAI
-
-client = OpenAI(api_key='your-api-key')
-
-def generate_salary_insights(data_summary):
-    """Generate insights using OpenAI GPT model"""
-    prompt = f"""
-    Analyze the following salary data summary and provide key insights:
-    
-    {data_summary}
-    
-    Please provide:
-    1. Key trends observed
-    2. Notable patterns or anomalies
-    3. Recommendations for salary transparency
-    4. Potential areas for further investigation
-    """
-    
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are a data analyst expert in compensation analysis."},
-            {"role": "user", "content": prompt}
+{`def getSector(prompt):
+    sectors_str = ", ".join(sectors_list)
+    data = {
+        "model": "llama3",
+        "messages": [
+            {
+                "role": "user",
+                # What we are asking the API, will be given the name of company in the prompt
+                "content": f"Identify the sector for the company named {prompt}. " 
+                            "Respond strictly in the format: 'Sector: [best matching sector]'. "
+                            f"Select the most appropriate sector from this list: {sectors_str}." 
+                            "Do not include any additional information or commentary."
+            }
         ],
-        max_tokens=500,
-        temperature=0.7
-    )
+        "stream": False,
+    }
+
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+    response = response.json()["message"]["content"]
     
-    return response.choices[0].message.content
+    # extract sector and industry
+    try:
+        sector = str(response).split("Sector: ")[1].split(",")[0]
+    except IndexError:
+        sector = "Unknown"
 
-# Generate data summary for LLM analysis
-summary = (
-    "Average Salary: $" + str(df_clean['salary'].mean()) + "\\n" +
-    "Median Salary: $" + str(df_clean['salary'].median()) + "\\n" +
-    "Salary Range: $" + str(df_clean['salary'].min()) + " - $" + str(df_clean['salary'].max()) + "\\n" +
-    "Most Common Job Title: " + str(df_clean['job_title'].mode()[0]) + "\\n" +
-    "Average Experience: " + str(df_clean['experience_years'].mean()) + " years"
-)
-
-# Get AI-generated insights
-ai_insights = generate_salary_insights(summary)
-print("AI-Generated Insights:")
-print(ai_insights)`}
+    return sector`}
 </CodeBlock>
 
 ## Key Findings
@@ -331,40 +269,6 @@ Our analysis revealed several important patterns in the compensation data:
 2. **Experience Impact**: Strong correlation between years of experience and compensation
 3. **Geographic Trends**: Location-based salary variations
 4. **Education Premium**: Clear compensation benefits for advanced degrees
-
-### Visualization Dashboard
-
-<CodeBlock language="python" title="Comprehensive Visualization">
-{`# Create comprehensive salary analysis dashboard
-fig, axes = plt.subplots(2, 2, figsize=(15, 12))
-
-# Salary distribution
-axes[0, 0].hist(df_clean['salary'], bins=30, alpha=0.7, color='skyblue')
-axes[0, 0].set_title('Salary Distribution')
-axes[0, 0].set_xlabel('Salary ($)')
-axes[0, 0].set_ylabel('Frequency')
-
-# Salary by experience
-sns.scatterplot(data=df_clean, x='experience_years', y='salary', ax=axes[0, 1])
-axes[0, 1].set_title('Salary vs Experience')
-axes[0, 1].set_xlabel('Years of Experience')
-axes[0, 1].set_ylabel('Salary ($)')
-
-# Salary by education level
-df_clean.boxplot(column='salary', by='education_level', ax=axes[1, 0])
-axes[1, 0].set_title('Salary by Education Level')
-axes[1, 0].set_xlabel('Education Level')
-axes[1, 0].set_ylabel('Salary ($)')
-
-# Top 10 highest paying job titles
-top_jobs = df_clean.groupby('job_title')['salary'].mean().nlargest(10)
-top_jobs.plot(kind='barh', ax=axes[1, 1])
-axes[1, 1].set_title('Top 10 Highest Paying Jobs')
-axes[1, 1].set_xlabel('Average Salary ($)')
-
-plt.tight_layout()
-plt.show()`}
-</CodeBlock>
 
 ## LLM-Enhanced Recommendations
 

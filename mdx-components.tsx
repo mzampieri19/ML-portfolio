@@ -10,6 +10,30 @@ import Table, {
   ClassificationTable, 
   FileTable 
 } from './app/components/Table'
+import PageBuilder, {
+  Heading,
+  Paragraph,
+  List,
+  ListItem,
+  HighlightBox,
+  Quote,
+  Divider,
+  Section,
+  TwoColumn,
+  FeatureList,
+  MetricsGrid,
+  Timeline
+} from './app/components/PageBuilder'
+import {
+  ProjectHeader,
+  ProjectTags,
+  ProjectNavigation,
+  ProjectLayout,
+  ProjectSection,
+  ProjectSubsection,
+  ResultsSection,
+  ArchitectureSection
+} from './app/components/ProjectComponents'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -24,6 +48,29 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     MetricsTable,
     ClassificationTable,
     FileTable,
+    
+    // Page Builder Components
+    PageBuilder,
+    Heading,
+    Paragraph,
+    List,
+    ListItem,
+    HighlightBox,
+    Quote,
+    Divider,
+    Section,
+    TwoColumn,
+    FeatureList,
+    MetricsGrid,
+    Timeline,
+    ProjectHeader,
+    ProjectTags,
+    ProjectNavigation,
+    ProjectLayout,
+    ProjectSection,
+    ProjectSubsection,
+    ResultsSection,
+    ArchitectureSection,
     
     // Enhanced HTML elements
     h1: ({ children, ...props }) => (
