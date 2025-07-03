@@ -159,6 +159,9 @@ export default function TopicsPage() {
               <Link href="/topics" className="text-purple-600 dark:text-purple-400 font-medium">
                 Topics
               </Link>
+              <Link href="/resources" className="text-slate-700 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                Resources
+              </Link>
               <Link href="/about" className="text-slate-700 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
                 About
               </Link>
@@ -180,6 +183,12 @@ export default function TopicsPage() {
             Explore the fundamental concepts, techniques, and algorithms that power modern machine learning. 
             Each topic includes detailed explanations, code examples, and connections to real projects.
           </p>
+
+          <div className="flex justify-center">
+            <p className="text-slate-600 dark:text-slate-400">
+                Note that the content of these pages come from my own knowledge and experience, and may not be perfectly accurate or up-to-date, please refer to the references for further reading.
+            </p>
+          </div>
         </div>
 
         {/* Search and Filters */}

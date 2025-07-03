@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Brain, Code, Database, GitBranch } from "lucide-react";
+import { ArrowRight, Brain, Code, Database, GitBranch, Monitor } from "lucide-react";
 
 export default function Home() {
   const projects = [
@@ -61,6 +61,9 @@ export default function Home() {
               </Link>
               <Link href="/topics" className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                 Topics
+              </Link>
+              <Link href="/resources" className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                Resources
               </Link>
               <Link href="/about" className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                 About
@@ -214,6 +217,92 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Resources Section */}
+      <section className="py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+              Essential ML Resources
+            </h2>
+            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+              Curated tools, libraries, and learning materials to accelerate your machine learning journey
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4">
+                <Code className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                Programming Languages
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300 text-sm">
+                Python, R, Julia and essential programming tools for ML development
+              </p>
+            </div>
+            
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4">
+                <Brain className="w-6 h-6 text-green-600 dark:text-green-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                ML Libraries
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300 text-sm">
+                PyTorch, TensorFlow, Scikit-learn and other powerful ML frameworks
+              </p>
+            </div>
+            
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4">
+                <Database className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                Data Science Tools
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300 text-sm">
+                Pandas, NumPy, Matplotlib and comprehensive data analysis tools
+              </p>
+            </div>
+            
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mb-4">
+                <GitBranch className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                Development Tools
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300 text-sm">
+                Git, Docker, MLflow and essential development and deployment tools
+              </p>
+            </div>
+
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center mb-4">
+                <Monitor className="w-6 h-6 text-red-600 dark:text-red-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                YouTube Channels
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300 text-sm">
+                3Blue1Brown, Two Minute Papers and other educational ML content
+              </p>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <Link 
+              href="/resources"
+              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200"
+            >
+              Explore All Resources
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Skills Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
@@ -254,6 +343,9 @@ export default function Home() {
             </Link>
             <Link href="/topics" className="text-slate-400 hover:text-white transition-colors">
               Topics
+            </Link>
+            <Link href="/resources" className="text-slate-400 hover:text-white transition-colors">
+              Resources
             </Link>
             <Link href="/about" className="text-slate-400 hover:text-white transition-colors">
               About
