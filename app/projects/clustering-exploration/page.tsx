@@ -165,7 +165,7 @@ const clusteringPageData = {
     {
       type: 'custom' as const,
       component: (
-        <CodeBlock language="python" filename="projection_techniques.py">
+        <CodeBlock language="python">
 {`# Dimensionality reduction techniques
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
@@ -251,7 +251,7 @@ print(f"After preprocessing: {X_scaled.shape[1]}")  # 37 -> 108 features`}
     {
       type: 'custom' as const,
       component: (
-        <CodeBlock language="python" filename="clustering_algorithms.py">
+        <CodeBlock language="python">
 {`# Clustering algorithms implementation
 from sklearn.cluster import KMeans, DBSCAN
 from sklearn.metrics import silhouette_score
@@ -359,7 +359,7 @@ print(f"DBSCAN t-SNE clusters: {len(set(tsne_dbscan_labels)) - (1 if -1 in tsne_
     {
       type: 'custom' as const,
       component: (
-        <CodeBlock language="python" filename="evaluation_metrics.py">
+        <CodeBlock language="python">
 {`# Comprehensive clustering evaluation
 from sklearn.metrics import silhouette_score, calinski_harabasz_score
 import matplotlib.pyplot as plt
@@ -529,7 +529,7 @@ plot_elbow_analysis(k_range, tsne_inertias, tsne_silhouettes, "t-SNE Data")`}
     {
       type: 'custom' as const,
       component: (
-        <CodeBlock language="python" filename="visualization.py">
+        <CodeBlock language="python">
 {`# Comprehensive clustering visualization
 import matplotlib.pyplot as plt
 import seaborn as sns

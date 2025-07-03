@@ -119,7 +119,7 @@ const diffusionPageData = {
         {
           type: 'custom' as const,
           content: (
-            <CodeBlock language="python" filename="diffusion.py">
+            <CodeBlock language="python">
 {`class Diffusion(nn.Module):
     def __init__(self):
         super().__init__()
@@ -142,7 +142,7 @@ const diffusionPageData = {
         {
           type: 'custom' as const,
           content: (
-            <CodeBlock language="python" filename="time_embedding.py">
+            <CodeBlock language="python">
 {`class TimeEmbedding(nn.Module):
     def __init__(self, n_embd):
         super().__init__()
@@ -172,7 +172,7 @@ const diffusionPageData = {
         {
           type: 'custom' as const,
           content: (
-            <CodeBlock language="python" filename="unet.py">
+            <CodeBlock language="python">
 {`class UNET(nn.Module):
     def __init__(self):
         super().__init__()
@@ -248,7 +248,7 @@ const diffusionPageData = {
         {
           type: 'custom' as const,
           content: (
-            <CodeBlock language="python" filename="ddpm_sampler.py">
+            <CodeBlock language="python">
 {`class DDPMSampler:
     def __init__(self, generator: torch.Generator, num_training_steps=1000, beta_start: float = 0.00085, beta_end: float = 0.0120): 
         # Create a linear schedule for betas (noise variance) between beta_start and beta_end
@@ -484,7 +484,7 @@ const diffusionPageData = {
         {
           type: 'custom' as const,
           content: (
-            <CodeBlock language="python" filename="pipeline.py">
+            <CodeBlock language="python">
 {`def generate(prompt, uncond_prompt=None, input_image=None, strength=0.8, do_cfg=True,
   cfg_scale=7.5, sampler_name="ddpm", n_inference_steps=50, models={}, seed=None,
   device=None, idle_device=None, tokenizer=None):

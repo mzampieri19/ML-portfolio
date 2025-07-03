@@ -411,6 +411,7 @@ interface ContentBlock {
   props?: any;
   content?: any;
   children?: ContentBlock[];
+  component?: React.ReactNode; // Add component property for custom blocks
 }
 
 interface PageBuilderProps {
@@ -509,7 +510,7 @@ export function PageBuilder({
         return <Timeline key={index} {...block.props} />;
       
       case 'custom':
-        return <div key={index}>{block.content}</div>;
+        return <div key={index}>{block.component || block.content}</div>;
       
       default:
         return null;
