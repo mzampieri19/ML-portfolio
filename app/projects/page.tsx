@@ -94,6 +94,9 @@ export default function ProjectsPage() {
               <Link href="/projects" className="text-blue-600 dark:text-blue-400 font-medium">
                 Projects
               </Link>
+              <Link href="/topics" className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                Topics
+              </Link>
               <Link href="/about" className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                 About
               </Link>

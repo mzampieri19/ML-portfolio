@@ -59,6 +59,9 @@ export default function Home() {
               <Link href="/projects" className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                 Projects
               </Link>
+              <Link href="/topics" className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                Topics
+              </Link>
               <Link href="/about" className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                 About
               </Link>
@@ -137,6 +140,80 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Topics Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-800/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
+              Explore ML Topics
+            </h2>
+            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
+              Dive deep into the fundamental concepts and techniques that power modern machine learning
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <Link href="/topics/convolutional-neural-networks" className="group">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 group-hover:border-blue-300 dark:group-hover:border-blue-600">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
+                    <Brain className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    CNNs
+                  </h3>
+                </div>
+                <p className="text-slate-600 dark:text-slate-300 text-sm">
+                  Deep learning architecture for computer vision and image processing tasks
+                </p>
+              </div>
+            </Link>
+            
+            <Link href="/topics/reinforcement-learning" className="group">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 group-hover:border-green-300 dark:group-hover:border-green-600">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
+                    <Code className="w-6 h-6 text-green-600 dark:text-green-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                    Reinforcement Learning
+                  </h3>
+                </div>
+                <p className="text-slate-600 dark:text-slate-300 text-sm">
+                  Learn optimal behaviors through trial and error interactions with environments
+                </p>
+              </div>
+            </Link>
+            
+            <Link href="/topics/clustering-algorithms" className="group">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 group-hover:border-purple-300 dark:group-hover:border-purple-600">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
+                    <Database className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                    Clustering Algorithms
+                  </h3>
+                </div>
+                <p className="text-slate-600 dark:text-slate-300 text-sm">
+                  Unsupervised learning techniques for discovering patterns and grouping data
+                </p>
+              </div>
+            </Link>
+          </div>
+          
+          <div className="text-center">
+            <Link 
+              href="/topics"
+              className="inline-flex items-center px-6 py-3 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold rounded-xl border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-200"
+            >
+              View All Topics
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Skills Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
@@ -174,6 +251,9 @@ export default function Home() {
           <div className="flex justify-center space-x-6">
             <Link href="/projects" className="text-slate-400 hover:text-white transition-colors">
               Projects
+            </Link>
+            <Link href="/topics" className="text-slate-400 hover:text-white transition-colors">
+              Topics
             </Link>
             <Link href="/about" className="text-slate-400 hover:text-white transition-colors">
               About
