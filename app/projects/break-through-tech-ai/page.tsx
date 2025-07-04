@@ -44,13 +44,15 @@ const bttaiPageData = {
           children: [
             {
               type: 'list' as const,
-              children: [
-                { content: "Introductory course to ML and AI at MIT through eCornell" },
-                { content: "Hands-on labs and assignments with real datasets" },
-                { content: "Comprehensive coverage from data preparation to modeling" },
-                { content: "Multiple ML algorithms and techniques explored" },
-                { content: "Practical Python programming and Jupyter notebooks" }
-              ]
+              props: {
+                items: [
+                "Introductory course to ML and AI at MIT through eCornell",
+                "Hands-on labs and assignments with real datasets",
+                "Comprehensive coverage from data preparation to modeling",
+                "Multiple ML algorithms and techniques explored",
+                "Practical Python programming and Jupyter notebooks" 
+                ]
+              }
             }
           ]
         }
@@ -169,14 +171,16 @@ const bttaiPageData = {
           },
           {
             type: 'list' as const,
-            children: [
-              { content: "Census Data: Demographic analysis and classification tasks" },
-              { content: "AirBNB Listings: Pricing and recommendation analysis" },
-              { content: "World Happiness Report: Comprehensive happiness analysis" },
-              { content: "MNIST Digit Dataset: Standard dataset for CNN implementation" },
-              { content: "Book Reviews: Text analysis and sentiment classification" },
-              { content: "Cell2Cell Telecom: Customer churn prediction dataset" }
-            ]
+            props: {
+              items: [
+                "Census Data: Demographic analysis and classification tasks",
+                "AirBNB Listings: Pricing and recommendation analysis",
+                "World Happiness Report: Comprehensive happiness analysis",
+                "MNIST Digit Dataset: Standard dataset for CNN implementation",
+                "Book Reviews: Text analysis and sentiment classification",
+                "Cell2Cell Telecom: Customer churn prediction dataset"
+              ]
+            }
           }
         ],
         right: [
@@ -194,13 +198,15 @@ const bttaiPageData = {
             children: [
               {
                 type: 'list' as const,
-                children: [
-                  { content: "Data Analysis: pandas, numpy" },
-                  { content: "Visualization: matplotlib, seaborn" },
-                  { content: "Machine Learning: scikit-learn" },
-                  { content: "Deep Learning: TensorFlow/Keras" },
-                  { content: "Development: Jupyter notebooks" }
-                ]
+                props: {
+                  items: [
+                    "Data Analysis: pandas, numpy",
+                    "Visualization: matplotlib, seaborn",
+                    "Machine Learning: scikit-learn",
+                    "Deep Learning: TensorFlow/Keras",
+                    "Development: Jupyter notebooks"
+                  ]
+                }
               }
             ]
           }
@@ -254,13 +260,15 @@ const bttaiPageData = {
         },
         {
           type: 'list' as const,
-          children: [
-            { content: "Customer Churn Prediction: Using telecom data to predict customer retention" },
-            { content: "Income Classification: Census data analysis for demographic insights" },
-            { content: "Image Recognition: Handwritten digit classification with CNNs" },
-            { content: "Happiness Analysis: World Happiness Report data for policy insights" },
-            { content: "Sentiment Analysis: Amazon book review classification" }
-          ]
+          props: {
+            items: [
+              "Customer Churn Prediction: Using telecom data to predict customer retention",
+              "Income Classification: Census data analysis for demographic insights",
+              "Image Recognition: Handwritten digit classification with CNNs",
+              "Happiness Analysis: World Happiness Report data for policy insights",
+              "Sentiment Analysis: Amazon book review classification"
+            ]
+          }
         }
       ]
     },
